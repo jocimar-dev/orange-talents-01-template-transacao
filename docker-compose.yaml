@@ -1,0 +1,44 @@
+version: '3'
+services:
+
+  postgres:
+    image: 'postgres:alpine'
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: transacao
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: transacao_db
+
+#  transacao-api:
+#    image: jocimar191016/transacao-api
+#    container_name: transacao-api
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - transacao_db
+#    environment:
+#      DATABASE_URL: jdbc:postgresql://transacao_db:5432/keycloak?createDatabaseIfNotExist=true
+#      DATABASE_USERNAME: postgres
+#      DATABASE_PASSWORD: password
+#
+#  transacao_db:
+#    image: postgres:alpine
+#    container_name: proposta-db
+#    expose:
+#      - 5432
+#    ports:
+#      - 15432:5432
+#    volumes:
+#      - postgres-volume:/var/lib/postgresql/data
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: password
+#      POSTGRES_DB: transacao
+
+
+volumes:
+  postgres-volume:
+  transacao-postrgres-volume:
