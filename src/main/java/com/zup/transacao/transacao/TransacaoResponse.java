@@ -3,7 +3,6 @@ package com.zup.transacao.transacao;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.zup.transacao.cartao.Cartao;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.UUID;
 

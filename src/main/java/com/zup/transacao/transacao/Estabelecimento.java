@@ -27,12 +27,24 @@ public class Estabelecimento {
         return nome;
     }
 
+    private void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    private void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
     public String getCidade() {
         return cidade;
     }
 
     public String getEndereco() {
         return endereco;
+    }
+
+    private void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     @Deprecated

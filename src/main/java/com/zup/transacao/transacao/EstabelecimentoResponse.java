@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class EstabelecimentoResponse {
 
     @JsonProperty
-    private String name;
+    private String nome;
 
     @JsonProperty
     private String cidade;
@@ -13,16 +13,16 @@ public class EstabelecimentoResponse {
     @JsonProperty
     private String endereco;
 
-    public EstabelecimentoResponse(String name,
+    public EstabelecimentoResponse(String nome,
                                    String cidade,
                                    String endereco) {
-        this.name = name;
+        this.nome = nome;
         this.cidade = cidade;
         this.endereco = endereco;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
     public String getCidade() {
