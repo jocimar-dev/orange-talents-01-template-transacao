@@ -1,6 +1,5 @@
 package com.zup.transacao.kafka;
 
-import com.zup.transacao.anotation.KafkaListener;
 import com.zup.transacao.cartao.Cartao;
 import com.zup.transacao.cartao.CartaoRepository;
 import com.zup.transacao.kafka.consumer.TransacaoConsumer;
@@ -9,6 +8,7 @@ import com.zup.transacao.transacao.TransacaoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +27,7 @@ public class KafkaService {
     }
 
 
-    @KafkaListener
-//            (topics = "${transactions.kafka.topic.name}", groupId = "${transactions.kafka.consumer.group.id}")
+    @KafkaListener(topics = "${kafka.transacao.server}", groupId = "${kafka.transacao.id}")
     @Transactional
     public void criaTransacao(TransacaoConsumer transacaoConsumer) {
         Cartao cartaoModel = transacaoConsumer.getCartaoModel();

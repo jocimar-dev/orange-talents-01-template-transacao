@@ -10,34 +10,54 @@ services:
     environment:
       POSTGRES_USER: transacao
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: transacao_db
+      POSTGRES_DB:
 
-#  transacao-api:
-#    image: jocimar191016/transacao-api
-#    container_name: transacao-api
-#    ports:
-#      - 8080:8080
-#    depends_on:
-#      - transacao_db
-#    environment:
-#      DATABASE_URL: jdbc:postgresql://transacao_db:5432/keycloak?createDatabaseIfNotExist=true
-#      DATABASE_USERNAME: postgres
-#      DATABASE_PASSWORD: password
-#
-#  transacao_db:
-#    image: postgres:alpine
-#    container_name: proposta-db
-#    expose:
-#      - 5432
-#    ports:
-#      - 15432:5432
-#    volumes:
-#      - postgres-volume:/var/lib/postgresql/data
-#    environment:
-#      POSTGRES_USER: postgres
-#      POSTGRES_PASSWORD: password
-#      POSTGRES_DB: transacao
+  keycloak:
+    image: jboss/keycloak
+    ports:
+      - 18443:8443
+      - 18080:8080
+      - 19990:9990
+    depends_on:
+      - postgres
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: postgres
+      DB_PORT: 5432
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+      POSTGRES_PORT_5432_TCP_ADDR: 127.0.0.1
+      KEYCLOAK_FRONTEND_URL: http://keycloak:8080/auth
 
+  transacao-api:
+    image: jocimar191016/transacao-api
+    container_name: transacao-api
+    ports:
+      - 8080:8080
+    depends_on:
+      - transacao_db
+    environment:
+      DATABASE_URL: jdbc:postgresql://transacao_db:5432/transacao_db
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: password
+
+  transacao_db:
+    image: postgres:alpine
+    container_name: transacao_db
+    expose:
+      - 5432
+    ports:
+      - 15432:5432
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: transacao
+      POSTGRES_HOST: transacao_db
 
 volumes:
   postgres-volume:

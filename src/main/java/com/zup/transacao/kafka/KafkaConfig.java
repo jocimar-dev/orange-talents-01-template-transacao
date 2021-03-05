@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Configuration
 @EnableKafka
-public class KafkaConfiguration {
+public class KafkaConfig {
 
     @Value("${kafka.transacao.server}")
     private String kafkaServer;
@@ -40,8 +40,10 @@ public class KafkaConfiguration {
     }
 
     @Bean
-    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, TransacaoConsumer>> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, TransacaoConsumer> listener = new ConcurrentKafkaListenerContainerFactory<>();
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String,
+            TransacaoConsumer>> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, TransacaoConsumer> listener =
+                new ConcurrentKafkaListenerContainerFactory<>();
         listener.setConsumerFactory(consumerConfig());
         return listener;
     }
